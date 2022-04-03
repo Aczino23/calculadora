@@ -2,6 +2,7 @@ namespace EjeCalculadora;
 
 public partial class Form1 : Form
 {
+    // botones calculadora normal
     private Button btnBorrarUltimo;
     private Button btnBorrarActual;
     private Button btnBorrarTodo;
@@ -22,7 +23,33 @@ public partial class Form1 : Form
     private Button btnPunto;
     private Button btnIgual;
     private Button btnDivision;
-
+    // botones calculadora cientifica
+    private Button btnPi;
+    private Button btLog;
+    private Button btnSqrt;
+    private Button btnCuadrado;
+    private Button btnSinh;
+    private Button btnSin;
+    private Button btnDecimal;
+    private Button btnXy;
+    private Button btnCosh;
+    private Button btnCos;
+    private Button btnBin;
+    private Button btn1X;
+    private Button btnTanh;
+    private Button btnTan;
+    private Button btnHex;
+    private Button btnLnx;
+    private Button btnExp; 
+    private Button btnMod;
+    private Button btnOct;
+    
+    // menu
+    private MenuStrip menu;
+    private ToolStripMenuItem catTipo;
+    private ToolStripMenuItem miEstandar;
+    private ToolStripMenuItem miCientifica;
+    
     private TextBox txtDisplay;
     private Label lblOperacion;
     private String operacion;
@@ -54,6 +81,53 @@ public partial class Form1 : Form
         btnPunto= new Button();
         btnIgual= new Button();
         btnDivision= new Button();
+        lblOperacion= new Label();
+        btnBorrarUltimo= new Button();
+        btnBorrarActual= new Button();
+        btnBorrarTodo= new Button();
+        btnSigno= new Button();
+        btn7= new Button();
+        btn8= new Button();
+        btn9= new Button();
+        btnSuma= new Button();
+        btn4= new Button();
+        btn5= new Button();
+        btn6= new Button();
+        btnResta= new Button();
+        btn1= new Button();
+        btn2= new Button();
+        btn3= new Button();
+        btnMultiplicacion= new Button();
+        btn0= new Button();
+        btnPunto= new Button();
+        btnIgual= new Button();
+        btnDivision= new Button();
+        // inicializar botones calculadora cientifica
+        btnPi = new Button();
+        btLog = new Button();
+        btnSqrt = new Button();
+        btnCuadrado = new Button();
+        btnSinh = new Button();
+        btnSin = new Button();
+        btnDecimal = new Button();
+        btnXy = new Button();
+        btnCosh = new Button();
+        btnCos = new Button();
+        btnBin = new Button();
+        btn1X = new Button();
+        btnTanh = new Button();
+        btnTan = new Button();
+        btnHex = new Button();
+        btnLnx = new Button();
+        btnExp = new Button();
+        btnMod = new Button();
+        btnOct = new Button();
+        // inicializar menu
+        menu = new MenuStrip();
+        catTipo = new ToolStripMenuItem();
+        miEstandar = new ToolStripMenuItem();
+        miCientifica = new ToolStripMenuItem();
+        
         InitializeComponent();
         InicializarComponentes();
     }
@@ -62,6 +136,8 @@ public partial class Form1 : Form
     {
         this.Size=new Size(600,500);
         this.Text="Calculadora";
+        // no poder redimensionar la ventana
+        this.FormBorderStyle=FormBorderStyle.FixedSingle;
         //Tamaño de botones
         btnBorrarUltimo.Size=new Size(60,60);
         btnBorrarActual.Size=new Size(60,60);
@@ -84,13 +160,36 @@ public partial class Form1 : Form
         btnIgual.Size=new Size(60,60);
         btnDivision.Size=new Size(60,60);
         
+        // tamaño de los botones calculadora cientifica
+        btnPi.Size=new Size(60,60);
+        btLog.Size=new Size(60,60);
+        btnSqrt.Size=new Size(60,60);              
+        btnCuadrado.Size=new Size(60,60);
+        btnSinh.Size=new Size(60,60);
+        btnSin.Size=new Size(60,60);
+        btnDecimal.Size=new Size(60,60);
+        btnXy.Size=new Size(60,60);
+        btnCos.Size=new Size(60,60);
+        btnCosh.Size=new Size(60,60);
+        btnBin.Size=new Size(60,60);
+        btn1X.Size=new Size(60,60);
+        btnTanh.Size=new Size(60,60);
+        btnTan.Size=new Size(60,60);
+        btnHex.Size=new Size(60,60);
+        btnLnx.Size=new Size(60,60);
+        btnExp.Size=new Size(60,60);
+        btnMod.Size=new Size(60,60);
+        btnOct.Size=new Size(60,60);
+        
         txtDisplay.Size=new Size(558,50);
         txtDisplay.Multiline=true;
         lblOperacion.AutoSize=true;
         txtDisplay.TextAlign=HorizontalAlignment.Right;
-
+        // no poder escribir texto en el display
+        txtDisplay.ReadOnly=true;
+        
         //Texto
-        btnBorrarUltimo.Text="⌫";
+        btnBorrarUltimo.Text="⌫";                              
         btnBorrarActual.Text="CE";
         btnBorrarTodo.Text="C";
         btnSigno.Text="±";
@@ -110,10 +209,36 @@ public partial class Form1 : Form
         btnPunto.Text=".";
         btnIgual.Text="=";
         btnDivision.Text="/";
+        
+        // texto de los botones calculadora cientifica
+        btnPi.Text="π";
+        btLog.Text="log";
+        btnSqrt.Text="√";
+        btnCuadrado.Text="x²";
+        btnSinh.Text="sinh";
+        btnSin.Text="sin";
+        btnDecimal.Text="Dec";
+        btnXy.Text="x^y";
+        btnCosh.Text="cosh";
+        btnCos.Text="cos";
+        btnBin.Text="Bin";
+        btn1X.Text="1/x";
+        btnTanh.Text="tanh";
+        btnTan.Text="tan";
+        btnHex.Text="Hex";
+        btnLnx.Text="Ln x";
+        btnExp.Text="Exp";
+        btnMod.Text="Mod";
+        btnOct.Text="Oct";
+        
+        // texto de los items del menu
+        catTipo.Text = "Tipo ▼";
+        miEstandar.Text="Estandar";
+        miCientifica.Text="Cientifica";
 
         //Posicion
-        txtDisplay.Location=new Point(10,30);
-        lblOperacion.Location=new Point(10,30);
+        txtDisplay.Location=new Point(10,50);
+        lblOperacion.Location=new Point(10,50);
         
         List<Button> lista = new List<Button>();
         lista.Add(btnBorrarUltimo);
@@ -137,7 +262,7 @@ public partial class Form1 : Form
         lista.Add(btnIgual);
         lista.Add(btnDivision);
         int x=10;
-        int y=85;
+        int y=105;
         int count=0;
         foreach (Button btn in lista)
         {
@@ -152,11 +277,77 @@ public partial class Form1 : Form
             x+=67;
             count++;
         }
-        //Agregar controles al formulario
+
+        List<Button> cientifica = new List<Button>();
+        cientifica.Add(btnPi);
+        cientifica.Add(btLog);
+        cientifica.Add(btnSqrt);
+        cientifica.Add(btnCuadrado);
+        cientifica.Add(btnSinh);
+        cientifica.Add(btnSin);
+        cientifica.Add(btnDecimal);
+        cientifica.Add(btnXy);
+        cientifica.Add(btnCosh);
+        cientifica.Add(btnCos);
+        cientifica.Add(btnBin);
+        cientifica.Add(btn1X);
+        cientifica.Add(btnTanh);
+        cientifica.Add(btnTan);
+        cientifica.Add(btnHex);
+        cientifica.Add(btnLnx);
+        cientifica.Add(btnExp);
+        cientifica.Add(btnMod);
+        cientifica.Add(btnOct);
+        x = 310;
+        y = 105;
+        count = 0;
+        foreach (Button btn in cientifica)
+        {
+            if(count == 4){
+                x = 310;
+                y += 67;
+                count = 0;
+            }
+            btn.Location=new Point(x,y);
+            this.Controls.Add(btn);
+            x+=67;
+            count++;
+        }
+        
+        // Eventos
+        miEstandar.Click += new EventHandler(miEstandar_Click);
+        miEstandar_Click(miEstandar, new EventArgs()); // por defecto muestra la calculadora estandar
+        miCientifica.Click += new EventHandler(miCientifica_Click);
+        btnPi.Click += new EventHandler(btnPi_Click);
+        btLog.Click += new EventHandler(btnLog_Click);
+        btnSqrt.Click += new EventHandler(btnRaiz_Click);
+        btnCuadrado.Click += new EventHandler(btnCuadrado_Click);
+        btnSinh.Click += new EventHandler(btnSinh_Click);
+        btnSin.Click += new EventHandler(btnSin_Click);
+        
+        // Agregar controles al formulario
         this.Controls.Add(txtDisplay);
         this.Controls.Add(lblOperacion);
+        catTipo.DropDownItems.Add(miEstandar);
+        catTipo.DropDownItems.Add(miCientifica);
+        menu.Items.Add(catTipo);
+        this.Controls.Add(menu);
+        this.Controls.Add(menu);
         lblOperacion.BringToFront();
     }
+
+    private void miCientifica_Click(object? sender, EventArgs e)
+    {
+        this.Size = new Size(600, 500);
+        txtDisplay.Size = new Size(558, 50);
+    }
+
+    private void miEstandar_Click(object? sender, EventArgs e)
+    {
+        this.Size = new Size(300, 500);
+        txtDisplay.Size = new Size(260, 50);
+    }
+
     private void btn_click(object? sender, EventArgs e){
         if(sender!=null){
             Button btn = (Button)sender;
@@ -179,7 +370,15 @@ public partial class Form1 : Form
                     boton_igual();
                     break;
                 case "±":
-                    txtDisplay.Text=(Double.Parse(txtDisplay.Text)*-1).ToString(); 
+                    try
+                    {
+                        txtDisplay.Text=(Double.Parse(txtDisplay.Text)*-1).ToString(); 
+                    }
+                    catch (Exception exception)
+                    {
+                        txtDisplay.Text = "";
+                        lblOperacion.Text = "";
+                    }
                     break;
                 case "0": case "1": case "2": case "3": case "4": case "5": case "6": case "7": case "8": case "9": case ".": 
                     boton_numero(btn.Text);
@@ -189,7 +388,6 @@ public partial class Form1 : Form
                     break;
             }
         }
-
     }
 
     private void boton_igual()
@@ -235,16 +433,116 @@ public partial class Form1 : Form
             txtDisplay.Text+=valor;
         }
     }
-
-    // convertir a binario
-    private void btnBinario_Click(object sender, EventArgs e)
+    
+    // calcular pi
+    private void btnPi_Click(object? sender, EventArgs e)
     {
-        txtDisplay.Text=Convert.ToString(Convert.ToInt32(txtDisplay.Text),2);
+        txtDisplay.Text = Math.PI + "";
     }
-
-    // calcular 1/x
-    private void btnInversa_Click(object sender, EventArgs e)
+    
+    // logaritmo base 10
+    private void btnLog_Click(object? sender, EventArgs e)
     {
-        txtDisplay.Text=(1/Double.Parse(txtDisplay.Text)).ToString();
+        try
+        {
+            lblOperacion.Text = $"Log10({txtDisplay.Text}) =";
+            double numero = Double.Parse(txtDisplay.Text);
+            if (numero > 0)
+            {
+                txtDisplay.Text = Math.Log10(numero) + "";
+            }
+            else
+            {
+                MessageBox.Show("Error: No se puede calcular el logaritmo de un número negativo",
+                    "Error: Logaritmo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtDisplay.Text = "";
+                lblOperacion.Text = "";
+            }
+        }
+        catch (Exception exception)
+        { 
+            txtDisplay.Text = ""; 
+            lblOperacion.Text = "";
+        }
     }
+    
+    // raiz cuadrada
+    private void btnRaiz_Click(object? sender, EventArgs e)
+    {
+        try
+        {
+            lblOperacion.Text = $"√({txtDisplay.Text}) ="; 
+            double numero = Double.Parse(txtDisplay.Text); 
+            if (numero >= 0) 
+            { 
+                txtDisplay.Text = Math.Sqrt(numero) + ""; 
+            } 
+            else 
+            { 
+                MessageBox.Show("Error: No se puede calcular la raíz cuadrada de un número negativo", 
+                    "Error: Raíz Cuadrada", MessageBoxButtons.OK, MessageBoxIcon.Error); 
+                txtDisplay.Text = ""; 
+                lblOperacion.Text = ""; 
+            }
+        }
+        catch (Exception exception)
+        {
+           txtDisplay.Text = "";
+           lblOperacion.Text = "";
+        }
+    }
+    
+    // calcular x^2
+    private void btnCuadrado_Click(object? sender, EventArgs e)
+    {
+        try
+        {
+            lblOperacion.Text = $"({txtDisplay.Text})^2 =";
+            double numero = Double.Parse(txtDisplay.Text);
+            double cuadrado = Math.Pow(numero, 2);
+            txtDisplay.Text = cuadrado + "";
+        }
+        catch (Exception exception)
+        {
+           txtDisplay.Text = "";
+           lblOperacion.Text = "";
+        }
+    }
+    
+    // calcular seno hiperbolico
+    private void btnSinh_Click(object? sender, EventArgs e)
+    {
+        try
+        {
+            lblOperacion.Text = $"senh({txtDisplay.Text}) =";
+            double numero = Double.Parse(txtDisplay.Text);
+            double senoh = Math.Sinh(numero);
+            txtDisplay.Text = senoh + "";
+        }
+        catch (Exception exception)
+        {
+           txtDisplay.Text = "";
+           lblOperacion.Text = "";
+        }
+    }
+    
+    // calcular seno
+    private void btnSin_Click(object? sender, EventArgs e)
+    {
+        try
+        {
+            lblOperacion.Text = $"sin({txtDisplay.Text}) =";
+            double numero = Double.Parse(txtDisplay.Text);
+            // convertir el numero de grados a radianes
+            double numRadianes = numero * Math.PI / 180;
+            double seno = Math.Sin(numRadianes);
+            txtDisplay.Text = seno + "";
+        }
+        catch (Exception exception)
+        {
+           txtDisplay.Text = "";
+           lblOperacion.Text = "";
+        }
+    }
+    
 }
