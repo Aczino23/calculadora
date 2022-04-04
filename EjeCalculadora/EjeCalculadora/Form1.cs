@@ -43,6 +43,7 @@ public partial class Form1 : Form
     private Button btnExp; 
     private Button btnMod;
     private Button btnOct;
+    private Button btnFac;
     
     // menu
     private MenuStrip menu;
@@ -122,6 +123,7 @@ public partial class Form1 : Form
         btnExp = new Button();
         btnMod = new Button();
         btnOct = new Button();
+        btnFac = new Button();
         // inicializar menu
         menu = new MenuStrip();
         catTipo = new ToolStripMenuItem();
@@ -180,6 +182,7 @@ public partial class Form1 : Form
         btnExp.Size=new Size(60,60);
         btnMod.Size=new Size(60,60);
         btnOct.Size=new Size(60,60);
+        btnFac.Size=new Size(60,60);
         
         txtDisplay.Size=new Size(558,50);
         txtDisplay.Multiline=true;
@@ -218,7 +221,7 @@ public partial class Form1 : Form
         btnSinh.Text="sinh";
         btnSin.Text="sin";
         btnDecimal.Text="Dec";
-        btnXy.Text="x^y";
+        btnXy.Text="^";
         btnCosh.Text="cosh";
         btnCos.Text="cos";
         btnBin.Text="Bin";
@@ -230,6 +233,7 @@ public partial class Form1 : Form
         btnExp.Text="Exp";
         btnMod.Text="Mod";
         btnOct.Text="Oct";
+        btnFac.Text="n!";
         
         // texto de los items del menu
         catTipo.Text = "Tipo ▼";
@@ -298,6 +302,7 @@ public partial class Form1 : Form
         cientifica.Add(btnExp);
         cientifica.Add(btnMod);
         cientifica.Add(btnOct);
+        cientifica.Add(btnFac);
         x = 310;
         y = 105;
         count = 0;
@@ -324,6 +329,20 @@ public partial class Form1 : Form
         btnCuadrado.Click += new EventHandler(btnCuadrado_Click);
         btnSinh.Click += new EventHandler(btnSinh_Click);
         btnSin.Click += new EventHandler(btnSin_Click);
+        btnDecimal.Click += new EventHandler(btnDecimal_Click);
+        btnXy.Click += new EventHandler(btn_click);
+        btnCosh.Click += new EventHandler(btnCosh_Click);
+        btnCos.Click += new EventHandler(btnCos_Click);
+        btnBin.Click += new EventHandler(btnBinario_Click);
+        btn1X.Click += new EventHandler(btn1X_Click);
+        btnTanh.Click += new EventHandler(btnTanh_Click);
+        btnTan.Click += new EventHandler(btnTan_Click);
+        btnHex.Click += new EventHandler(btnHexadecimal_Click);
+        btnLnx.Click += new EventHandler(btnLnx_Click);
+        btnExp.Click += new EventHandler(btnExp_Click);
+        btnMod.Click += new EventHandler(btn_click);
+        btnOct.Click += new EventHandler(btnOctal_Click);
+        btnFac.Click += new EventHandler(btnFactorial_Click);
         
         // Agregar controles al formulario
         this.Controls.Add(txtDisplay);
@@ -383,9 +402,9 @@ public partial class Form1 : Form
                 case "0": case "1": case "2": case "3": case "4": case "5": case "6": case "7": case "8": case "9": case ".": 
                     boton_numero(btn.Text);
                     break;
-                case "+": case "-": case "*": case "/": 
-                    boton_operador(btn.Text);
-                    break;
+                case "+": case "-": case "*": case "/": case "^": case "Mod":
+                   boton_operador(btn.Text);
+                   break;
             }
         }
     }
@@ -406,6 +425,12 @@ public partial class Form1 : Form
                 break;
             case "/":
                 txtDisplay.Text=(resultado/Double.Parse(txtDisplay.Text)).ToString();
+                break;
+            case "^":
+                txtDisplay.Text=(Math.Pow(resultado,Double.Parse(txtDisplay.Text))).ToString();
+                break;
+            case "Mod":
+                txtDisplay.Text=(resultado % Double.Parse(txtDisplay.Text)).ToString();
                 break;
         }
     }
@@ -537,6 +562,241 @@ public partial class Form1 : Form
             double numRadianes = numero * Math.PI / 180;
             double seno = Math.Sin(numRadianes);
             txtDisplay.Text = seno + "";
+        }
+        catch (Exception exception)
+        {
+           txtDisplay.Text = "";
+           lblOperacion.Text = "";
+        }
+    }
+    
+    // convertir de hexadecimal a decimal, de octal a decimal, de binario a decimal
+    // TODO: terminar aun no funciona bien
+    private void btnDecimal_Click(object? sender, EventArgs e)
+    {
+        try
+        {
+            lblOperacion.Text = $"{txtDisplay.Text} =";
+            int numero = Convert.ToInt32(txtDisplay.Text, 16);
+            txtDisplay.Text = numero + "";
+        }
+        catch (Exception exception)
+        {
+            try
+            {
+                lblOperacion.Text = $"{txtDisplay.Text} =";
+                int numero = Convert.ToInt32(txtDisplay.Text, 8);
+                txtDisplay.Text = numero + "";
+            }
+            catch (Exception exception2)
+            {
+                try
+                {
+                    lblOperacion.Text = $"{txtDisplay.Text} =";
+                    int numero = Convert.ToInt32(txtDisplay.Text, 2);
+                    txtDisplay.Text = numero + "";
+                }
+                catch (Exception exception3)
+                {
+                    txtDisplay.Text = "";
+                    lblOperacion.Text = "";
+                }
+            }
+        }
+    }
+    
+    // calcular coseno hiperbolico
+    private void btnCosh_Click(object? sender, EventArgs e)
+    {
+        try
+        {
+            lblOperacion.Text = $"cosh({txtDisplay.Text}) =";
+            double numero = Double.Parse(txtDisplay.Text);
+            double cosh = Math.Cosh(numero);
+            txtDisplay.Text = cosh + "";
+        }
+        catch (Exception exception)
+        {
+           txtDisplay.Text = "";
+           lblOperacion.Text = "";
+        }
+    }
+    
+    // calculara coseno
+    private void btnCos_Click(object? sender, EventArgs e)
+    {
+        try
+        {
+            lblOperacion.Text = $"cos({txtDisplay.Text}) =";
+            double numero = Double.Parse(txtDisplay.Text);
+            // convertir el numero de grados a radianes
+            double numRadianes = numero * Math.PI / 180;
+            double coseno = Math.Cos(numRadianes);
+            txtDisplay.Text = coseno + "";
+        }
+        catch (Exception exception)
+        {
+           txtDisplay.Text = "";
+           lblOperacion.Text = "";
+        }
+    }
+    
+    // convertir a binario
+    // TODO: terminar aun no funciona bien
+    private void btnBinario_Click(object? sender, EventArgs e)
+    {
+        try
+        {
+            lblOperacion.Text = $"Bin = {Convert.ToString(Convert.ToInt32(txtDisplay.Text), 2)} \n";
+            lblOperacion.Text += $"Hex = {Convert.ToString(Convert.ToInt32(txtDisplay.Text), 16)} \n";
+            lblOperacion.Text += $"Oct = {Convert.ToString(Convert.ToInt32(txtDisplay.Text), 8)}";
+            
+        }
+        catch (Exception exception)
+        { 
+            MessageBox.Show("Error: No se puede realizar la conversión, valor no válido",
+                "Error: Conversión Binario", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            txtDisplay.Text = ""; 
+            lblOperacion.Text = "";
+        }
+    }
+    
+    // calcular 1/x
+    private void btn1X_Click(object? sender, EventArgs e)
+    {
+        try
+        {
+            lblOperacion.Text = $"1/{txtDisplay.Text} =";
+            double numero = Double.Parse(txtDisplay.Text);
+            double inversa = 1 / numero;
+            txtDisplay.Text = inversa + "";
+        }
+        catch (Exception exception)
+        {
+           txtDisplay.Text = "";
+           lblOperacion.Text = "";
+        }
+    }
+    
+    // calcular tangente hiperbolica
+    private void btnTanh_Click(object? sender, EventArgs e)
+    {
+        try
+        {
+            lblOperacion.Text = $"tanh({txtDisplay.Text}) =";
+            double numero = Double.Parse(txtDisplay.Text);
+            double tangente = Math.Tanh(numero);
+            txtDisplay.Text = tangente + "";
+        }
+        catch (Exception exception)
+        {
+           txtDisplay.Text = "";
+           lblOperacion.Text = "";
+        }
+    }
+    
+    //calcular tangente
+    private void btnTan_Click(object? sender, EventArgs e)
+    {
+        try
+        {
+            lblOperacion.Text = $"tan({txtDisplay.Text}) =";
+            double numero = Double.Parse(txtDisplay.Text);
+            // convertir el numero de grados a radianes
+            double numRadianes = numero * Math.PI / 180;
+            double tangente = Math.Tan(numRadianes);
+            txtDisplay.Text = tangente + "";
+        }
+        catch (Exception exception)
+        {
+           txtDisplay.Text = "";
+           lblOperacion.Text = "";
+        }
+    }
+    
+    // convertir a hexadecimal
+    // TODO: terminar aun no funciona bien
+    private void btnHexadecimal_Click(object? sender, EventArgs e)
+    {
+        try
+        {
+            lblOperacion.Text = $"Hex({txtDisplay.Text}) = ";
+            txtDisplay.Text = Convert.ToString(Convert.ToInt32(txtDisplay.Text, 10), 16);
+        }
+        catch (Exception exception)
+        { 
+            MessageBox.Show("Error: No se puede realizar la conversión, valor no válido",
+                "Error: Conversión Hexadecimal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            txtDisplay.Text = ""; 
+            lblOperacion.Text = "";
+        }
+    }
+    
+    // calcular logaritmo natural de X
+    private void btnLnx_Click(object? sender, EventArgs e)
+    {
+        try
+        {
+            lblOperacion.Text = $"Ln({txtDisplay.Text}) =";
+            double numero = Double.Parse(txtDisplay.Text);
+            double logaritmo = Math.Log(numero);
+            txtDisplay.Text = logaritmo + "";
+        }
+        catch (Exception exception)
+        {
+           txtDisplay.Text = "";
+           lblOperacion.Text = "";
+        }
+    }
+    
+    // calcular Exp
+    private void btnExp_Click(object? sender, EventArgs e)
+    {
+        try
+        {
+            lblOperacion.Text = $"Exp({txtDisplay.Text}) =";
+            double numero = Double.Parse(txtDisplay.Text);
+            double exponencial = Math.Exp(numero);
+            txtDisplay.Text = exponencial + "";
+        }
+        catch (Exception exception)
+        {
+           txtDisplay.Text = "";
+           lblOperacion.Text = "";
+        }
+    }
+    
+    // convertir a octal
+    // TODO: terminar aun no funciona bien
+    private void btnOctal_Click(object? sender, EventArgs e)
+    {
+        try
+        {
+            lblOperacion.Text = $"Oct({txtDisplay.Text}) = ";
+            txtDisplay.Text = Convert.ToString(Convert.ToInt32(txtDisplay.Text, 10), 8);
+        }
+        catch (Exception exception)
+        { 
+            MessageBox.Show("Error: No se puede realizar la conversión, valor no válido",
+                "Error: Conversión Octal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            txtDisplay.Text = ""; 
+            lblOperacion.Text = "";
+        }
+    }
+    
+    // calcular factorial
+    private void btnFactorial_Click(object? sender, EventArgs e)
+    {
+        try
+        {
+            lblOperacion.Text = $"{txtDisplay.Text}!";
+            double numero = Double.Parse(txtDisplay.Text);
+            double factorial = 1;
+            for (int i = 1; i <= numero; i++)
+            {
+                factorial = factorial * i;
+            }
+            txtDisplay.Text = factorial + "";
         }
         catch (Exception exception)
         {
