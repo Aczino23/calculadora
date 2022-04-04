@@ -574,33 +574,80 @@ public partial class Form1 : Form
     // TODO: terminar aun no funciona bien
     private void btnDecimal_Click(object? sender, EventArgs e)
     {
-        try
-        {
-            lblOperacion.Text = $"{txtDisplay.Text} =";
-            int numero = Convert.ToInt32(txtDisplay.Text, 16);
-            txtDisplay.Text = numero + "";
-        }
-        catch (Exception exception)
+        // convertir de hexadecimal a decimal
+        if (txtDisplay.Text.StartsWith("0x"))
         {
             try
             {
                 lblOperacion.Text = $"{txtDisplay.Text} =";
-                int numero = Convert.ToInt32(txtDisplay.Text, 8);
-                txtDisplay.Text = numero + "";
+                string numero = txtDisplay.Text.Substring(2);
+                int decimalNumero = Convert.ToInt32(numero, 16);
+                txtDisplay.Text = decimalNumero + "";
             }
-            catch (Exception exception2)
+            catch (Exception exception)
             {
-                try
-                {
-                    lblOperacion.Text = $"{txtDisplay.Text} =";
-                    int numero = Convert.ToInt32(txtDisplay.Text, 2);
-                    txtDisplay.Text = numero + "";
-                }
-                catch (Exception exception3)
-                {
-                    txtDisplay.Text = "";
-                    lblOperacion.Text = "";
-                }
+                txtDisplay.Text = "";
+                lblOperacion.Text = "";
+            }
+        }// convertir de octal a decimal
+        else if (txtDisplay.Text.StartsWith("0"))
+        {
+            try
+            {
+                lblOperacion.Text = $"{txtDisplay.Text} =";
+                string numero = txtDisplay.Text.Substring(1);
+                int decimalNumero = Convert.ToInt32(numero, 8);
+                txtDisplay.Text = decimalNumero + "";
+            }
+            catch (Exception exception)
+            {
+                txtDisplay.Text = "";
+                lblOperacion.Text = "";
+            }
+        }// convertir de binario a decimal
+        else if (txtDisplay.Text.StartsWith("0b"))
+        {
+            try
+            {
+                lblOperacion.Text = $"{txtDisplay.Text} =";
+                string numero = txtDisplay.Text.Substring(2);
+                int decimalNumero = Convert.ToInt32(numero, 2);
+                txtDisplay.Text = decimalNumero + "";
+            }
+            catch (Exception exception)
+            {
+                txtDisplay.Text = "";
+                lblOperacion.Text = "";
+            }
+        }
+        // convertir de binario a decimal
+        else if (txtDisplay.Text.StartsWith("0b"))
+        {
+            try
+            {
+                lblOperacion.Text = $"{txtDisplay.Text} =";
+                string numero = txtDisplay.Text.Substring(2);
+                int decimalNumero = Convert.ToInt32(numero, 2);
+                txtDisplay.Text = decimalNumero + "";
+            }
+            catch (Exception exception)
+            {
+                txtDisplay.Text = "";
+                lblOperacion.Text = "";
+            }
+        }
+        else
+        {
+            try
+            {
+                lblOperacion.Text = $"{txtDisplay.Text} =";
+                int decimalNumero = Convert.ToInt32(txtDisplay.Text);
+                txtDisplay.Text = decimalNumero + "";
+            }
+            catch (Exception exception)
+            {
+                txtDisplay.Text = "";
+                lblOperacion.Text = "";
             }
         }
     }
@@ -641,16 +688,13 @@ public partial class Form1 : Form
         }
     }
     
-    // convertir a binario
-    // TODO: terminar aun no funciona bien
+    // convertir a binari
     private void btnBinario_Click(object? sender, EventArgs e)
     {
         try
         {
-            lblOperacion.Text = $"Bin = {Convert.ToString(Convert.ToInt32(txtDisplay.Text), 2)} \n";
-            lblOperacion.Text += $"Hex = {Convert.ToString(Convert.ToInt32(txtDisplay.Text), 16)} \n";
-            lblOperacion.Text += $"Oct = {Convert.ToString(Convert.ToInt32(txtDisplay.Text), 8)}";
-            
+            lblOperacion.Text = $"Bin({txtDisplay.Text}) =";
+            txtDisplay.Text = Convert.ToString(Convert.ToInt32(txtDisplay.Text, 10), 2);
         }
         catch (Exception exception)
         { 
@@ -715,7 +759,6 @@ public partial class Form1 : Form
     }
     
     // convertir a hexadecimal
-    // TODO: terminar aun no funciona bien
     private void btnHexadecimal_Click(object? sender, EventArgs e)
     {
         try
@@ -767,7 +810,6 @@ public partial class Form1 : Form
     }
     
     // convertir a octal
-    // TODO: terminar aun no funciona bien
     private void btnOctal_Click(object? sender, EventArgs e)
     {
         try
@@ -804,5 +846,4 @@ public partial class Form1 : Form
            lblOperacion.Text = "";
         }
     }
-    
 }
